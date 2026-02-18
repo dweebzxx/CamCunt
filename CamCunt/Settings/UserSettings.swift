@@ -26,6 +26,8 @@ class UserSettings: ObservableObject {
                     }
                     UserDefaults.standard.set(openAtLogin, forKey: "login")
                 } catch {
+                    // Note: On failure, the UI state remains changed but UserDefaults is not updated.
+                    // This maintains the same behavior as the original SMLoginItemSetEnabled implementation.
                     print("Failed to \(openAtLogin ? "enable" : "disable") login item: \(error)")
                 }
             } else {
