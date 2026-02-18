@@ -14,6 +14,7 @@ import Cocoa
 class VideoRenderer: NSObject {
     private let sampleBufferDisplayLayer: AVSampleBufferDisplayLayer
     private var cropSettings: CropSettings
+    private let ciContext: CIContext
     
     var layer: CALayer {
         return sampleBufferDisplayLayer
@@ -22,6 +23,7 @@ class VideoRenderer: NSObject {
     init(cropSettings: CropSettings = .shared) {
         self.sampleBufferDisplayLayer = AVSampleBufferDisplayLayer()
         self.cropSettings = cropSettings
+        self.ciContext = CIContext()
         super.init()
         
         sampleBufferDisplayLayer.videoGravity = .resizeAspect
@@ -90,8 +92,7 @@ class VideoRenderer: NSObject {
         }
         
         // Render the cropped image to the new pixel buffer
-        let context = CIContext()
-        context.render(croppedImage, to: outputBuffer)
+        ciContext.render(croppedImage, to: outputBuffer)
         
         // Create a new sample buffer with the cropped pixel buffer
         var sampleBufferOut: CMSampleBuffer?
