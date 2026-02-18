@@ -14,8 +14,10 @@ import AVFoundation
 class CameraPreviewInternal: NSView {
     var captureDevice: AVCaptureDevice?
     private var captureSession: AVCaptureSession
-    private var previewLayer: AVCaptureVideoPreviewLayer!
+    private var videoOutput: AVCaptureVideoDataOutput!
     private var captureInput: AVCaptureInput?
+    private var videoRenderer: VideoRenderer!
+    private let videoQueue = DispatchQueue(label: "com.dweebzxx.camcunt.videoQueue")
 
     init(frame frameRect: NSRect, device: AVCaptureDevice?) {
         captureDevice = device
@@ -24,14 +26,24 @@ class CameraPreviewInternal: NSView {
         super.init(frame: frameRect)
 
         configureDevice(device)
-        setupPreviewLayer(captureSession)
+        setupVideoOutput(captureSession)
         captureSession.startRunning()
     }
 
-    private func setupPreviewLayer(_ captureSession: AVCaptureSession) {
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = CGRect(x: 0, y: 0, width: 400, height: 225)
-        previewLayer.videoGravity = .resizeAspect
+    private func setupVideoOutput(_ captureSession: AVCaptureSession) {
+        videoOutput = AVCaptureVideoDataOutput()
+        videoOutput.videoSettings = [
+            kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA
+        ]
+        videoOutput.setSampleBufferDelegate(self, queue: videoQueue)
+        videoOutput.alwaysDiscardsLateVideoFrames = true
+        
+        if captureSession.canAddOutput(videoOutput) {
+            captureSession.addOutput(videoOutput)
+        }
+        
+        videoRenderer = VideoRenderer()
+        videoRenderer.layer.frame = CGRect(x: 0, y: 0, width: 400, height: 225)
     }
 
     required init?(coder: NSCoder) {
@@ -40,14 +52,17 @@ class CameraPreviewInternal: NSView {
 
     override func layout() {
         super.layout()
-        previewLayer.frame = bounds
-        layer?.addSublayer(previewLayer)
+        videoRenderer.layer.frame = bounds
+        if videoRenderer.layer.superlayer == nil {
+            layer?.addSublayer(videoRenderer.layer)
+        }
     }
 
     func stopRunning() {
         if captureSession.isRunning {
             captureSession.stopRunning()
         }
+        videoRenderer.flush()
     }
 
     func updateCamera(_ cam: AVCaptureDevice?) {
@@ -81,5 +96,11 @@ class CameraPreviewInternal: NSView {
             return
         }
         captureDevice = device
+    }
+}
+
+extension CameraPreviewInternal: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        videoRenderer.render(sampleBuffer: sampleBuffer)
     }
 }
