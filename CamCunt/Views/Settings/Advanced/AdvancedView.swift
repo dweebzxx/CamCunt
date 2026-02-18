@@ -17,6 +17,7 @@ struct AdvancedView: View {
             PowerLineView(controller: controller)
             BacklightView(controller: controller)
             OrientationView(controller: controller)
+            CropView(cropSettings: controller.cropSettings)
             FocusView(controller: controller)
         }
     }

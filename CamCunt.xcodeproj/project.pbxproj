@@ -53,6 +53,7 @@
 		F4D4C6D424CBD8EC00581E05 /* OrientationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D4C6D324CBD8EC00581E05 /* OrientationView.swift */; };
 		F4D4C6D624CBD96B00581E05 /* MultipleCaptureDeviceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D4C6D524CBD96B00581E05 /* MultipleCaptureDeviceProperty.swift */; };
 		F4D4C6D824CBDA5700581E05 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D4C6D724CBDA5700581E05 /* FocusView.swift */; };
+		CC1A2B3C4D5E6F7A8B9C0D1F /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A2B3C4D5E6F7A8B9C0D1E /* CropView.swift */; };
 		F4D4C6DC24CBDBC600581E05 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D4C6DB24CBDBC600581E05 /* PreferencesView.swift */; };
 		F4D4C6E424CBE7A000581E05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D4C6E324CBE7A000581E05 /* AppDelegate.swift */; };
 		F4D4C6E824CBE7A200581E05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4D4C6E724CBE7A200581E05 /* Assets.xcassets */; };
@@ -159,6 +160,7 @@
 		F4D4C6D324CBD8EC00581E05 /* OrientationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationView.swift; sourceTree = "<group>"; };
 		F4D4C6D524CBD96B00581E05 /* MultipleCaptureDeviceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCaptureDeviceProperty.swift; sourceTree = "<group>"; };
 		F4D4C6D724CBDA5700581E05 /* FocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusView.swift; sourceTree = "<group>"; };
+		CC1A2B3C4D5E6F7A8B9C0D1E /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
 		F4D4C6DB24CBDBC600581E05 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		F4D4C6E124CBE7A000581E05 /* Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4D4C6E324CBE7A000581E05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 				F4D4C6D324CBD8EC00581E05 /* OrientationView.swift */,
 				F4D4C6D724CBDA5700581E05 /* FocusView.swift */,
 				F400B4D124DE1546003B9602 /* DisabledAdvancedView.swift */,
+				CC1A2B3C4D5E6F7A8B9C0D1E /* CropView.swift */,
 			);
 			path = Advanced;
 			sourceTree = "<group>";
@@ -669,7 +672,8 @@
 				F4E5262524C7C2E100125DF9 /* SettingsView.swift in Sources */,
 			
 				336639346565623361653464 /* CropSettings.swift in Sources */,
-				373666313734623166303964 /* VideoRenderer.swift in Sources */,);
+				373666313734623166303964 /* VideoRenderer.swift in Sources */,
+				CC1A2B3C4D5E6F7A8B9C0D1F /* CropView.swift in Sources */,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F47D07D824C4104600E44A22 /* Sources */ = {

@@ -10,6 +10,9 @@
 import SwiftUI
 
 struct DisabledAdvancedView: View {
+    /// When non-nil, the crop section is shown as fully functional.
+    var cropSettings: CropSettings? = nil
+
     var body: some View {
         VStack {
             GroupBox(label: Text("Powerline Frequency")) {
@@ -24,7 +27,7 @@ struct DisabledAdvancedView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     Spacer()
                 }
-            }
+            }.disabled(true)
 
             GroupBox(label: Text("Backlight Compensation")) {
                 HStack {
@@ -36,7 +39,7 @@ struct DisabledAdvancedView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .frame(width: 300, height: 20.0)
                 }
-            }
+            }.disabled(true)
 
             GroupBox(label: Text("Zoom/Pan/Tilt")) {
                 VStack(spacing: 3.0) {
@@ -44,6 +47,24 @@ struct DisabledAdvancedView: View {
                     slider("Tilt:")
                     slider("Pan:")
                 }
+            }.disabled(true)
+
+            if let cs = cropSettings {
+                CropView(cropSettings: cs)
+            } else {
+                GroupBox(label: Text("Crop")) {
+                    VStack(spacing: 3.0) {
+                        Toggle(isOn: .constant(false)) { Text("Enable Crop") }
+                        slider("Top:")
+                        slider("Bottom:")
+                        slider("Left:")
+                        slider("Right:")
+                        HStack {
+                            Spacer()
+                            Button("Reset Crop") {}
+                        }
+                    }
+                }.disabled(true)
             }
 
             GroupBox(label: Text("Focus")) {
@@ -55,8 +76,8 @@ struct DisabledAdvancedView: View {
                     Spacer()
                     Slider(value: .constant(0.0), in: 0...1).frame(width: 300, height: 15.0)
                 }
-            }
-        }.disabled(true)
+            }.disabled(true)
+        }
     }
 
     func slider(_ name: String) -> some View {
