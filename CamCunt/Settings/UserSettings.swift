@@ -16,9 +16,22 @@ class UserSettings: ObservableObject {
 
     @Published var openAtLogin: Bool {
         didSet {
-            let success = SMLoginItemSetEnabled("com.dweebzxx.CamCunt.Helper" as CFString, openAtLogin)
-            if success {
-                UserDefaults.standard.set(openAtLogin, forKey: "login")
+            if #available(macOS 13.0, *) {
+                do {
+                    if openAtLogin {
+                        try SMAppService.mainApp.register()
+                    } else {
+                        try SMAppService.mainApp.unregister()
+                    }
+                    UserDefaults.standard.set(openAtLogin, forKey: "login")
+                } catch {
+                    print("Failed to \(openAtLogin ? "enable" : "disable") login item: \(error)")
+                }
+            } else {
+                let success = SMLoginItemSetEnabled("com.dweebzxx.CamCunt.Helper" as CFString, openAtLogin)
+                if success {
+                    UserDefaults.standard.set(openAtLogin, forKey: "login")
+                }
             }
         }
     }
