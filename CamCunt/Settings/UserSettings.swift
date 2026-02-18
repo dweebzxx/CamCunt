@@ -16,9 +16,25 @@ class UserSettings: ObservableObject {
 
     @Published var openAtLogin: Bool {
         didSet {
-            let success = SMLoginItemSetEnabled("com.dweebzxx.CamCunt.Helper" as CFString, openAtLogin)
-            if success {
-                UserDefaults.standard.set(openAtLogin, forKey: "login")
+            if #available(macOS 13.0, *) {
+                do {
+                    let service = SMAppService.loginItem(identifier: "com.dweebzxx.CamCunt.Helper")
+                    if openAtLogin {
+                        try service.register()
+                    } else {
+                        try service.unregister()
+                    }
+                    UserDefaults.standard.set(openAtLogin, forKey: "login")
+                } catch {
+                    // Note: On failure, the UI state remains changed but UserDefaults is not updated.
+                    // This maintains the same behavior as the original SMLoginItemSetEnabled implementation.
+                    print("Failed to \(openAtLogin ? "enable" : "disable") login item: \(error)")
+                }
+            } else {
+                let success = SMLoginItemSetEnabled("com.dweebzxx.CamCunt.Helper" as CFString, openAtLogin)
+                if success {
+                    UserDefaults.standard.set(openAtLogin, forKey: "login")
+                }
             }
         }
     }
