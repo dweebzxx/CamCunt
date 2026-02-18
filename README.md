@@ -1,88 +1,84 @@
-<h1 align="center"> CameraController </h1>
+# CamCunt
 
-<!-- subtext -->
-<div align="center">
-Control your cameras settings without using the software provided (or not) by the company.
-</div>
+> **Attribution:** This project is based on <a href="https://github.com/itaybre/CameraController">CameraController</a> by <a href="https://github.com/itaybre">@itaybre</a> (Itay Brenner). Forked, renamed, and extended by <a href="https://github.com/dweebzxx">@dweebzxx</a>.
 
-<br/>
+Control your USB webcam settings — exposure, white balance, focus, zoom, crop, and more — without vendor software.
 
-<!-- shields -->
-<div align="center">
-    <!-- downloads -->
-    <a href="https://github.com/itaybre/CameraController/releases">
-        <img src="https://img.shields.io/github/downloads/itaybre/CameraController/total" alt="downloads"/>
-    </a>
-    <!-- version -->
-    <a href="https://github.com/itaybre/CameraController/releases/latest">
-        <img src="https://img.shields.io/github/release/itaybre/CameraController.svg" alt="latest version"/>
-    </a>
-    <!-- license -->
-    <a href="https://github.com/itaybre/CameraController/blob/master/License.txt">
-        <img src="https://img.shields.io/github/license/itaybre/CameraController.svg" alt="license"/>
-    </a>
-    <!-- platform -->
-    <a href="https://github.com/itaybre/CameraController">
-        <img src="https://img.shields.io/badge/platform-macOS-lightgrey.svg" alt="platform"/>
-    </a>
-</div>
+## Features
 
-<br/>
+- Multi-camera detection and switching
+- Live camera preview with real-time crop overlay
+- Universal software crop (works with any camera — USB, built-in, virtual)
+- Exposure control (manual/auto mode, exposure time, gain)
+- Image adjustment (brightness, contrast, saturation, sharpness)
+- White balance (auto/manual with temperature slider)
+- Powerline frequency filtering (disabled/50Hz/60Hz/auto)
+- Backlight compensation toggle
+- Zoom control
+- Pan & tilt control
+- Focus control (auto/manual)
+- Settings profiles (save, load, update, delete)
+- Camera Default reset
+- Per-device settings persistence
+- Open at login
+- Configurable periodic read/write polling
+- Hot-plug camera detection
+- Native Apple Silicon support
+- macOS 12+ compatible
 
-<div align="center">
-    <img src="./.github/Basic.png" width="299" alt="basic screenshot"/>
-    <img src="./.github/Advanced.png" width="299" alt="advanced screenshot"/>
-    <img src="./.github/Preferences.png" width="299" alt="preferences screenshot"/>
+## System Requirements
 
-</div>
+- macOS 12 (Monterey) or later
+- Apple Silicon (M1/M2/M3/M4) native support
+- Intel Mac support
+- Works with USB webcams that support <a href="https://www.usb.org/document-library/video-class-v15-document-set">UVC</a>
+- Crop feature works with ALL cameras (USB, built-in, virtual)
 
 ## Installation
 
-### Manually
+### From Source
 
-Download the latest `.zip` from [Releases](https://github.com/itaybre/CameraController/releases/latest).
-
-### Homebrew
-
-```
-brew tap homebrew/cask-drivers
-brew install --cask cameracontroller
-```
-
-## ToDo
-
-- Apply latest settings on startup
-- Add more Unit Tests
-- Support for some vendor specific capabilities (like Logitech LED control)
-
-## How to help
-
-Open [issues](https://github.com/itaybre/CameraController/issues) if you have a question, an enhancement to suggest or a bug you've found. If you want you can fork the code yourself and submit a pull request to improve the app.
-
-## How to build
-
-### Required
-
-- Xcode
-- [Swiftlint](https://github.com/realm/SwiftLint)
-
-Clone the project
+Clone the repository and open `CamCunt.xcodeproj` in Xcode:
 ```sh
-$ git clone https://github.com/itaybre/CameraController.git
+git clone https://github.com/dweebzxx/CamCunt.git
+cd CamCunt
+open CamCunt.xcodeproj
 ```
 
-You're all set ! Now open the `CameraController.xcodeproj` with Xcode
+Build and run (⌘R).
+
+### Requirements to Build
+
+- Xcode 14+ (for macOS 12 deployment target)
+- <a href="https://github.com/realm/SwiftLint">SwiftLint</a> (optional)
+
+## Feature Details
+
+### Crop (NEW)
+Universal software crop that works with any camera. Located in the Advanced settings tab. Adjust top, bottom, left, and right insets. Crop settings persist per-camera and are included in saved profiles.
+
+### UVC Controls
+Exposure (manual/auto, time, gain), image (brightness, contrast, saturation, sharpness), white balance (auto/manual), powerline frequency, backlight compensation, zoom, pan, tilt, and focus (auto/manual).
+
+### Profiles
+Save, load, update, and delete named settings profiles. Apply "Camera Default" to reset to factory values.
 
 ## FAQ
 
-- Does it work with Apple's Facetime Camera?
+- **Does it work with Apple's FaceTime camera?**
+  On older Macs, yes. On Macs with T1/T2/Apple Silicon security chips, UVC controls are restricted by Apple. The crop feature will still work.
 
-In old machines it will work, but new machines (wth T1 and T2 chip) require a special entitlement only available to Apple.
+- **Does it work with virtual cameras (e.g., OBS)?**
+  UVC controls will not work, but the crop feature will.
 
-## Support
-- macOS Catalina (`10.15`) and up.
-- Works with cameras controllable via [UVC](https://www.usb.org/document-library/video-class-v15-document-set).
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+**Note:** This project is a fork of the original CameraController by Itay Brenner. All modifications and extensions are also licensed under GPL v3.0.
 
 ## Contributors
-- [@itaybre](https://github.com/itaybre)
-- Icons by [@herrerajeff](https://github.com/herrerajeff)
+
+- <a href="https://github.com/itaybre">@itaybre</a> — Original CameraController
+- <a href="https://github.com/herrerajeff">@herrerajeff</a> — Icons
+- <a href="https://github.com/dweebzxx">@dweebzxx</a> — Fork maintainer, crop feature, rebrand
