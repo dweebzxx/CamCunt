@@ -1,16 +1,17 @@
 //
 //  AppDelegate.swift
-//  Helper
+//  CamCunt
 //
 //  Created by Itay Brenner on 7/25/20.
-//  Copyright © 2020 Itaysoft. All rights reserved.
+//  Copyright © 2025 dweebzxx. All rights reserved.
+//  Originally CameraController by Itay Brenner (itaybre)
 //
 
 import Cocoa
 import SwiftUI
 
 enum HelperConstants {
-    static let BundleIdentifier = "com.itaysoft.CameraController"
+    static let BundleIdentifier = "com.dweebzxx.CamCunt"
 }
 
 @NSApplicationMain
