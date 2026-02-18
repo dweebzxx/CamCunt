@@ -7,66 +7,52 @@
 //
 
 import SwiftUI
-import UVC
 
 struct ExposureView: View {
-    @ObservedObject var exposureMode: BitmapCaptureDeviceProperty
-    @ObservedObject var exposureTime: NumberCaptureDeviceProperty
-    @ObservedObject var gain: NumberCaptureDeviceProperty
-
-    var auto: Binding<Bool> {
-        Binding(get: {
-            exposureMode.selected == .aperturePriority
-        }, set: { auto in
-            withAnimation {
-                exposureMode.selected = auto ? .aperturePriority : .manual
-            }
-        })
-    }
-
-    init(controller: DeviceController) {
-        self.exposureTime = controller.exposureTime
-        self.exposureMode = controller.exposureMode
-        self.gain = controller.gain
-    }
+    @ObservedObject var controller: DeviceController
 
     var body: some View {
-        SectionView {
-            SectionTitle(title: "Exposure",
-                         image: Image(systemName: "clock.fill")) {
-                if auto.wrappedValue {
-                    AutoBadge()
-                        .transition(.opacity)
-                }
-            }
-
-            HStack {
-                Toggle(isOn: auto.animation())
-                Slider(value: $exposureTime.sliderValue,
-                          step: exposureTime.resolution,
-                          sliderRange: exposureTime.minimum...exposureTime.maximum)
-                    .disabled(auto.wrappedValue)
-            }
-
-            if !auto.wrappedValue {
+        GroupBox(label: Text("Exposure")) {
+            VStack(spacing: 3.0) {
                 HStack {
-                    Toggle(isOn: .constant(false))
-                        .hidden()
-                    VStack {
-                        HStack {
-                            Text("Gain")
-                                .fontWeight(.heavy)
-                            Spacer()
-                        }
-                        HStack {
-                            Slider(value: $gain.sliderValue,
-                                      step: gain.resolution,
-                                      sliderRange: gain.minimum...gain.maximum)
-                            .disabled(auto.wrappedValue)
-                        }
+                    Text("Mode:")
+                    Spacer()
+                    Picker(selection: $controller.exposureMode.selected, label: EmptyView()) {
+                        Text("Manual").tag(UVCBitmapControl.BitmapValue.manual)
+                        Text("Auto").tag(UVCBitmapControl.BitmapValue.aperturePriority)
                     }
+                .   disabled(!controller.exposureMode.isCapable)
+                    .pickerStyle(SegmentedPickerStyle())
+                    .frame(width: 300, height: 20.0)
+                }
+
+                HStack {
+                    Text("Exposure Time:")
+                    Spacer()
+                    Slider(value: $controller.exposureTime.sliderValue, in:
+                        controller.exposureTime.minimum...controller.exposureTime.maximum)
+                        .disabled(!optionsEnabled() || !controller.exposureTime.isCapable)
+                        .frame(width: 300, height: 15.0)
+                }
+
+                HStack {
+                    Text("Gain:")
+                    Spacer()
+                    Slider(value: $controller.gain.sliderValue, in: controller.gain.minimum...controller.gain.maximum)
+                        .disabled(!optionsEnabled() || !controller.gain.isCapable)
+                        .frame(width: 300, height: 15.0)
                 }
             }
         }
     }
+
+    func optionsEnabled() -> Bool {
+        return controller.exposureMode.selected == .manual
+    }
 }
+
+//struct ExposureView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExposureView()
+//    }
+//}

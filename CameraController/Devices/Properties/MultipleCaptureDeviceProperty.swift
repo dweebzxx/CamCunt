@@ -7,13 +7,9 @@
 //
 
 import Foundation
-import UVC
 
-final class MultipleCaptureDeviceProperty: ObservableObject {
+class MultipleCaptureDeviceProperty {
     private let control: UVCMultipleIntControl
-
-    @Published private var intervalValue1: Float
-    @Published private var intervalValue2: Float
 
     var sliderValue1: Float {
         get {
@@ -21,11 +17,7 @@ final class MultipleCaptureDeviceProperty: ObservableObject {
         }
         set {
             if sliderValue1 != newValue {
-                intervalValue1 = newValue
-
-                Task {
-                    control.current1 = Int(newValue)
-                }
+                control.current1 = Int(newValue)
             }
         }
     }
@@ -36,11 +28,7 @@ final class MultipleCaptureDeviceProperty: ObservableObject {
         }
         set {
             if sliderValue2 != newValue {
-                intervalValue2 = newValue
-
-                Task {
-                    control.current2 = Int(newValue)
-                }
+                control.current2 = Int(newValue)
             }
         }
     }
@@ -52,8 +40,6 @@ final class MultipleCaptureDeviceProperty: ObservableObject {
     let maximum2: Float
     let resolution1: Float
     let resolution2: Float
-    let defaultValue1: Float
-    let defaultValue2: Float
 
     init(_ control: UVCMultipleIntControl) {
         self.control = control
@@ -64,10 +50,6 @@ final class MultipleCaptureDeviceProperty: ObservableObject {
         maximum2 = Float(control.maximum2)
         resolution1 = Float(control.resolution1)
         resolution2 = Float(control.resolution2)
-        defaultValue1 = Float(control.defaultValue1)
-        defaultValue2 = Float(control.defaultValue2)
-        intervalValue1 = Float(control.defaultValue1)
-        intervalValue2 = Float(control.defaultValue2)
         sliderValue1 = Float(control.current1)
         sliderValue2 = Float(control.current2)
     }

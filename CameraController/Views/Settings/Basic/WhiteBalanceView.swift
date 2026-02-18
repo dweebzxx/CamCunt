@@ -9,20 +9,27 @@
 import SwiftUI
 
 struct WhiteBalanceView: View {
-    @ObservedObject var whiteBalanceAuto: BoolCaptureDeviceProperty
-    @ObservedObject var whiteBalance: NumberCaptureDeviceProperty
-
-    init(controller: DeviceController) {
-        self.whiteBalanceAuto = controller.whiteBalanceAuto
-        self.whiteBalance = controller.whiteBalance
-    }
+    @ObservedObject var controller: DeviceController
 
     var body: some View {
-        GenericControl(value: $whiteBalance.sliderValue,
-                       step: whiteBalance.resolution,
-                       range: whiteBalance.minimum...whiteBalance.maximum,
-                       title: "White Balance",
-                       imageName: "slider.horizontal.3",
-                       auto: $whiteBalanceAuto.isEnabled)
+        GroupBox(label: Text("White Balance")) {
+            HStack {
+                Toggle(isOn: $controller.whiteBalanceAuto.isEnabled) {
+                    Text("Auto")
+                }
+
+                Spacer()
+                Slider(value: $controller.whiteBalance.sliderValue,
+                       in: controller.whiteBalance.minimum...controller.whiteBalance.maximum)
+                    .frame(width: 300, height: 15)
+                    .disabled(controller.whiteBalanceAuto.isEnabled)
+            }
+        }
     }
 }
+
+//struct WhiteBalanceView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WhiteBalanceView()
+//    }
+//}

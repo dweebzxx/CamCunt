@@ -7,31 +7,23 @@
 //
 
 import Foundation
-import UVC
 
-final class BitmapCaptureDeviceProperty: ObservableObject {
+class BitmapCaptureDeviceProperty {
     private let control: UVCBitmapControl
 
     let isCapable: Bool
-
-    @Published private var internalValue: UVCBitmapControl.BitmapValue
 
     var selected: UVCBitmapControl.BitmapValue {
         get {
             return control.current
         }
         set {
-            internalValue = newValue
-
-            Task {
-                control.current = newValue
-            }
+            control.current = newValue
         }
     }
 
     init(_ control: UVCBitmapControl) {
         self.control = control
-        internalValue = control.current
         isCapable = control.isCapable
         selected = control.current
     }

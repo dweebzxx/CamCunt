@@ -7,14 +7,11 @@
 //
 
 import Foundation
-import UVC
 
-final class BoolCaptureDeviceProperty: ObservableObject {
+class BoolCaptureDeviceProperty {
     private let control: UVCBoolControl
 
     let isCapable: Bool
-
-    @Published private var internalValue: Bool
 
     var isEnabled: Bool {
         get {
@@ -22,11 +19,7 @@ final class BoolCaptureDeviceProperty: ObservableObject {
         }
         set {
             if newValue != isEnabled {
-                internalValue = newValue
-
-                Task {
-                    control.isEnabled = newValue
-                }
+                control.isEnabled = newValue
             }
         }
     }
@@ -34,7 +27,6 @@ final class BoolCaptureDeviceProperty: ObservableObject {
     init(_ control: UVCBoolControl) {
         self.control = control
         isCapable = control.isCapable
-        internalValue = control.isEnabled
         isEnabled = control.isEnabled
     }
 

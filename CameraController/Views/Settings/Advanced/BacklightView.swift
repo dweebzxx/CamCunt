@@ -9,26 +9,26 @@
 import SwiftUI
 
 struct BacklightView: View {
-    @ObservedObject var backlightCompensation: NumberCaptureDeviceProperty
-
-    init(controller: DeviceController) {
-        self.backlightCompensation = controller.backlightCompensation
-    }
+    @ObservedObject var controller: DeviceController
 
     var body: some View {
-        SectionView {
-            SectionTitle(title: "Backlight Compensation",
-                         image: Image(systemName: "light.beacon.max")) {
-                Toggle(isOn: backightEnabled)
+        GroupBox(label: Text("Backlight Compensation")) {
+            HStack {
+                Spacer()
+                Picker(selection: $controller.backlightCompensation.sliderValue, label: EmptyView()) {
+                    Text("Off").tag(0 as Float)
+                    Text("On").tag(1 as Float)
+                }
+                .disabled(!controller.backlightCompensation.isCapable)
+                .pickerStyle(SegmentedPickerStyle())
+                .frame(width: 300, height: 20.0)
             }
         }
     }
-
-    var backightEnabled: Binding<Bool> {
-        Binding(get: {
-            backlightCompensation.sliderValue > 0
-        }, set: {
-            backlightCompensation.sliderValue = $0 ? backlightCompensation.maximum : 0
-        })
-    }
 }
+
+//struct BacklightView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BacklightView()
+//    }
+//}

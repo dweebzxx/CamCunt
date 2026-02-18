@@ -9,20 +9,28 @@
 import SwiftUI
 
 struct FocusView: View {
-    @ObservedObject var focusAuto: BoolCaptureDeviceProperty
-    @ObservedObject var focusAbsolute: NumberCaptureDeviceProperty
-
-    init(controller: DeviceController) {
-        self.focusAuto = controller.focusAuto
-        self.focusAbsolute = controller.focusAbsolute
-    }
+    @ObservedObject var controller: DeviceController
 
     var body: some View {
-        GenericControl(value: $focusAbsolute.sliderValue,
-                       step: focusAbsolute.resolution,
-                       range: focusAbsolute.minimum...focusAbsolute.maximum,
-                       title: "Focus",
-                       imageName: "camera.aperture",
-                       auto: $focusAuto.isEnabled)
+        GroupBox(label: Text("Focus")) {
+            HStack {
+                Toggle(isOn: $controller.focusAuto.isEnabled) {
+                    Text("Auto")
+                }
+                .disabled(!controller.focusAuto.isCapable)
+
+                Spacer()
+                Slider(value: $controller.focusAbsolute.sliderValue,
+                       in: controller.focusAbsolute.minimum...controller.focusAbsolute.maximum)
+                    .frame(width: 300, height: 15)
+                    .disabled(!controller.focusAbsolute.isCapable)
+            }
+        }
     }
 }
+
+//struct FocusView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FocusView()
+//    }
+//}

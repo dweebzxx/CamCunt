@@ -8,7 +8,6 @@
 
 import XCTest
 @testable import CameraController
-@testable import UVC
 
 class StringTests: XCTestCase {
     func testExtractProductAndVendor() throws {

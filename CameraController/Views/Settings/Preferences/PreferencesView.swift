@@ -9,24 +9,64 @@
 import SwiftUI
 
 struct PreferencesView: View {
+    @ObservedObject var settings = UserSettings.shared
+
     var body: some View {
-        VStack(spacing: Constants.Style.controlsSpacing) {
-            ApplicationSection()
-            CameraSection()
-            PreviewSection()
-            ReadWriteSection()
-            UpdatesSection()
-            QuitButton()
+        VStack(alignment: .leading) {
+            applicationSettings()
+            readSettings()
+            writeSettings()
         }
-        .padding(.top, 2)
-        .padding(.bottom, Constants.Style.topSpacing)
+    }
+
+    fileprivate func applicationSettings() -> some View {
+        return GroupBox(label: Text("Application")) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Toggle(isOn: $settings.openAtLogin) {
+                        Text("Open at login")
+                    }
+                }
+                Spacer()
+            }
+        }
+    }
+
+    fileprivate func readSettings() -> some View {
+        return GroupBox(label: Text("Read Settings")) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Picker(selection: $settings.readRate, label: Text("")) {
+                        Text("Disabled").tag(RefreshSettingsRate.disabled)
+                        Text("Every 0.5 Seconds").tag(RefreshSettingsRate.halfSecond)
+                        Text("Every 1 Second").tag(RefreshSettingsRate.oneSecond)
+                        Text("Every 2 Second").tag(RefreshSettingsRate.twoSeconds)
+                    }
+                }
+                Spacer()
+            }
+        }
+    }
+
+    fileprivate func writeSettings() -> some View {
+        GroupBox(label: Text("Push Settings")) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Picker(selection: $settings.writeRate, label: Text("")) {
+                        Text("Disabled").tag(RefreshSettingsRate.disabled)
+                        Text("Every 0.5 Seconds").tag(RefreshSettingsRate.halfSecond)
+                        Text("Every 1 Second").tag(RefreshSettingsRate.oneSecond)
+                        Text("Every 2 Second").tag(RefreshSettingsRate.twoSeconds)
+                    }
+                }
+                Spacer()
+            }
+        }
     }
 }
 
-#if DEBUG
 struct PreferencesView_Previews: PreviewProvider {
     static var previews: some View {
         PreferencesView()
     }
 }
-#endif

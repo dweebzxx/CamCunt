@@ -7,47 +7,53 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct SettingsView: View {
     @Binding var captureDevice: CaptureDevice?
-    @Binding var currentSection: Int?
+    @State var currentView: Int = 1
 
     var body: some View {
-        contentView()
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, Constants.Style.padding)
-            .padding(.bottom, Constants.Style.padding)
-            .transition(.opacity.animation(.easeOut(duration: 0.25)))
-            .id(currentSection)
+        GroupBox(label: Text("Settings")) {
+            VStack {
+                Picker(selection: $currentView.animation(.linear), label: EmptyView()) {
+                    Text("Basic").tag(1)
+                    Text("Advanced").tag(2)
+                    Text("Preferences").tag(3)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .frame(width: 300)
+
+                if currentView == 1 {
+                    basicVew()
+                } else if currentView == 2 {
+                    advancedView()
+                } else {
+                    PreferencesView()
+                }
+            }
+        }
     }
 
-    @ViewBuilder
-    private func contentView() -> some View {
-        if currentSection == nil {
-            EmptyView()
-        } else if currentSection == 3 {
-            PreferencesView()
-        } else if let controller = captureDevice?.controller {
-            if currentSection == 0 {
-                BasicSettings(controller: controller)
-            } else if currentSection == 1 {
-                AdvancedView(controller: controller)
-            } else if currentSection == 2 {
-                ProfilesView()
-            }
+    func basicVew() -> AnyView {
+        if let controller = captureDevice?.controller {
+            return AnyView(BasicSettings(controller: controller))
         } else {
-            UnsupportedView()
+            return AnyView(DisabledBasicSettings())
+        }
+    }
+
+    func advancedView() -> AnyView {
+        if let controller = captureDevice?.controller {
+            return AnyView(AdvancedView(controller: controller))
+        } else {
+            return AnyView(DisabledAdvancedView())
         }
     }
 }
 
-#if DEBUG
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(
-            captureDevice: .constant(nil),
-            currentSection: .constant(nil)
-        )
+        SettingsView(captureDevice: .constant(nil))
     }
 }
-#endif

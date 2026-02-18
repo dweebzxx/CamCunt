@@ -10,7 +10,7 @@ import Combine
 import Foundation
 import AVFoundation
 
-final class DevicesManager: ObservableObject {
+class DevicesManager: ObservableObject {
     static let shared = DevicesManager()
 
     private let deviceMonitor = DeviceMonitor()
@@ -65,7 +65,6 @@ final class DevicesManager: ObservableObject {
         }
 
         devices.append(CaptureDevice(avDevice: device))
-        NotificationCenter.default.post(name: .devicesUpdated, object: nil)
     }
 
     @objc
@@ -87,6 +86,5 @@ final class DevicesManager: ObservableObject {
         if device.uniqueID == selectedDevice?.avDevice?.uniqueID {
             selectedDevice = nil
         }
-        NotificationCenter.default.post(name: .devicesUpdated, object: nil)
     }
 }
