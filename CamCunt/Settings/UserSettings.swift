@@ -27,14 +27,12 @@ class UserSettings: ObservableObject {
                     UserDefaults.standard.set(openAtLogin, forKey: "login")
                 } catch {
                     print("Failed to \(openAtLogin ? "enable" : "disable") login item: \(error)")
-                    // Don't save to UserDefaults on failure
                 }
             } else {
                 let success = SMLoginItemSetEnabled("com.dweebzxx.CamCunt.Helper" as CFString, openAtLogin)
                 if success {
                     UserDefaults.standard.set(openAtLogin, forKey: "login")
                 }
-                // Don't save to UserDefaults on failure
             }
         }
     }
