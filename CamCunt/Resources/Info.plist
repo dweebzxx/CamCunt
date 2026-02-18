@@ -22,10 +22,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.photography</string>
-	<key>LSBackgroundOnly</key>
-	<true/>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Access required to control cameras</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Originally CameraController by itaybre. Copyright © 2025 dweebzxx. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
