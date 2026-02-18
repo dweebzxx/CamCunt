@@ -79,7 +79,7 @@
 			containerPortal = F47D07BC24C4104300E44A22 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F47D07C324C4104300E44A22;
-			remoteInfo = CameraController;
+			remoteInfo = CamCunt;
 		};
 		F4D4C6F724CBE81900581E05 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -119,7 +119,7 @@
 		F47D07D124C4104600E44A22 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F47D07D424C4104600E44A22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F47D07D624C4104600E44A22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F47D07D724C4104600E44A22 /* CameraController.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CameraController.entitlements; sourceTree = "<group>"; };
+		F47D07D724C4104600E44A22 /* CamCunt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CamCunt.entitlements; sourceTree = "<group>"; };
 		F47D07DC24C4104600E44A22 /* CamCuntTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CamCuntTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F47D07E224C4104600E44A22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F47D07EE24C4123600E44A22 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
@@ -209,8 +209,8 @@
 		F47D07BB24C4104300E44A22 = {
 			isa = PBXGroup;
 			children = (
-				F47D07C624C4104300E44A22 /* CameraController */,
-				F47D07DF24C4104600E44A22 /* CameraControllerTests */,
+				F47D07C624C4104300E44A22 /* CamCunt */,
+				F47D07DF24C4104600E44A22 /* CamCuntTests */,
 				F4D4C6E224CBE7A000581E05 /* Helper */,
 				F47D07C524C4104300E44A22 /* Products */,
 				F47D07F024C4125B00E44A22 /* Frameworks */,
@@ -227,7 +227,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F47D07C624C4104300E44A22 /* CameraController */ = {
+		F47D07C624C4104300E44A22 /* CamCunt */ = {
 			isa = PBXGroup;
 			children = (
 				F47D07C724C4104300E44A22 /* AppDelegate.swift */,
@@ -238,7 +238,7 @@
 				F47D07EB24C4117A00E44A22 /* Views */,
 				F47D07D024C4104600E44A22 /* Preview Content */,
 			);
-			path = CameraController;
+			path = CamCunt;
 			sourceTree = "<group>";
 		};
 		F47D07D024C4104600E44A22 /* Preview Content */ = {
@@ -249,14 +249,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		F47D07DF24C4104600E44A22 /* CameraControllerTests */ = {
+		F47D07DF24C4104600E44A22 /* CamCuntTests */ = {
 			isa = PBXGroup;
 			children = (
 				F47D07E224C4104600E44A22 /* Info.plist */,
 				F47D07F324C412F800E44A22 /* DevicesManagerTests.swift */,
 				F47D080924C50E1C00E44A22 /* StringTests.swift */,
 			);
-			path = CameraControllerTests;
+			path = CamCuntTests;
 			sourceTree = "<group>";
 		};
 		F47D07EB24C4117A00E44A22 /* Views */ = {
@@ -292,7 +292,7 @@
 				F47D07CE24C4104600E44A22 /* Assets.xcassets */,
 				F47D07D324C4104600E44A22 /* Main.storyboard */,
 				F47D07D624C4104600E44A22 /* Info.plist */,
-				F47D07D724C4104600E44A22 /* CameraController.entitlements */,
+				F47D07D724C4104600E44A22 /* CamCunt.entitlements */,
 				F47D07CB24C4104300E44A22 /* CamCunt.xcdatamodeld */,
 			);
 			path = Resources;
@@ -455,9 +455,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F47D07C324C4104300E44A22 /* CameraController */ = {
+		F47D07C324C4104300E44A22 /* CamCunt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F47D07E524C4104600E44A22 /* Build configuration list for PBXNativeTarget "CameraController" */;
+			buildConfigurationList = F47D07E524C4104600E44A22 /* Build configuration list for PBXNativeTarget "CamCunt" */;
 			buildPhases = (
 				F47D07C024C4104300E44A22 /* Sources */,
 				F47D07C124C4104300E44A22 /* Frameworks */,
@@ -470,14 +470,14 @@
 			dependencies = (
 				F4D4C6F824CBE81900581E05 /* PBXTargetDependency */,
 			);
-			name = CameraController;
-			productName = CameraController;
+			name = CamCunt;
+			productName = CamCunt;
 			productReference = F47D07C424C4104300E44A22 /* CamCunt.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F47D07DB24C4104600E44A22 /* CameraControllerTests */ = {
+		F47D07DB24C4104600E44A22 /* CamCuntTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F47D07E824C4104600E44A22 /* Build configuration list for PBXNativeTarget "CameraControllerTests" */;
+			buildConfigurationList = F47D07E824C4104600E44A22 /* Build configuration list for PBXNativeTarget "CamCuntTests" */;
 			buildPhases = (
 				F47D07D824C4104600E44A22 /* Sources */,
 				F47D07D924C4104600E44A22 /* Frameworks */,
@@ -488,7 +488,7 @@
 			dependencies = (
 				F47D07DE24C4104600E44A22 /* PBXTargetDependency */,
 			);
-			name = CameraControllerTests;
+			name = CamCuntTests;
 			productName = CamCuntTests;
 			productReference = F47D07DC24C4104600E44A22 /* CamCuntTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -532,7 +532,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F47D07BF24C4104300E44A22 /* Build configuration list for PBXProject "CameraController" */;
+			buildConfigurationList = F47D07BF24C4104300E44A22 /* Build configuration list for PBXProject "CamCunt" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -545,8 +545,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F47D07C324C4104300E44A22 /* CameraController */,
-				F47D07DB24C4104600E44A22 /* CameraControllerTests */,
+				F47D07C324C4104300E44A22 /* CamCunt */,
+				F47D07DB24C4104600E44A22 /* CamCuntTests */,
 				F4D4C6E024CBE7A000581E05 /* Helper */,
 			);
 		};
@@ -683,7 +683,7 @@
 /* Begin PBXTargetDependency section */
 		F47D07DE24C4104600E44A22 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F47D07C324C4104300E44A22 /* CameraController */;
+			target = F47D07C324C4104300E44A22 /* CamCunt */;
 			targetProxy = F47D07DD24C4104600E44A22 /* PBXContainerItemProxy */;
 		};
 		F4D4C6F824CBE81900581E05 /* PBXTargetDependency */ = {
@@ -830,26 +830,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = CameraController/Resources/CameraController.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CamCunt/Resources/CamCunt.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_ASSET_PATHS = "\"CameraController/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"CamCunt/Preview Content\"";
 				DEVELOPMENT_TEAM = PY9WJ3M9MW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = CameraController/Resources/Info.plist;
+				INFOPLIST_FILE = CamCunt/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.itaysoft.CameraController;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dweebzxx.CamCunt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = CameraController/UVC/Models/USBHeaders.h;
+				SWIFT_OBJC_BRIDGING_HEADER = CamCunt/UVC/Models/USBHeaders.h;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -858,27 +858,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = CameraController/Resources/CameraController.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CamCunt/Resources/CamCunt.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_ASSET_PATHS = "\"CameraController/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"CamCunt/Preview Content\"";
 				DEVELOPMENT_TEAM = PY9WJ3M9MW;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GCC_OPTIMIZATION_LEVEL = s;
-				INFOPLIST_FILE = CameraController/Resources/Info.plist;
+				INFOPLIST_FILE = CamCunt/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 1.3;
-				PRODUCT_BUNDLE_IDENTIFIER = com.itaysoft.CameraController;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dweebzxx.CamCunt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = CameraController/UVC/Models/USBHeaders.h;
+				SWIFT_OBJC_BRIDGING_HEADER = CamCunt/UVC/Models/USBHeaders.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -892,17 +892,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PY9WJ3M9MW;
-				INFOPLIST_FILE = CameraControllerTests/Info.plist;
+				INFOPLIST_FILE = CamCuntTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.itaysoft.CameraControllerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dweebzxx.CamCuntTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CamCunt.app/Contents/MacOS/CameraController";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CamCunt.app/Contents/MacOS/CamCunt";
 			};
 			name = Debug;
 		};
@@ -914,17 +914,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PY9WJ3M9MW;
-				INFOPLIST_FILE = CameraControllerTests/Info.plist;
+				INFOPLIST_FILE = CamCuntTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = com.itaysoft.CameraControllerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dweebzxx.CamCuntTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CamCunt.app/Contents/MacOS/CameraController";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CamCunt.app/Contents/MacOS/CamCunt";
 			};
 			name = Release;
 		};
@@ -987,7 +987,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F47D07BF24C4104300E44A22 /* Build configuration list for PBXProject "CameraController" */ = {
+		F47D07BF24C4104300E44A22 /* Build configuration list for PBXProject "CamCunt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F47D07E324C4104600E44A22 /* Debug */,
@@ -996,7 +996,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F47D07E524C4104600E44A22 /* Build configuration list for PBXNativeTarget "CameraController" */ = {
+		F47D07E524C4104600E44A22 /* Build configuration list for PBXNativeTarget "CamCunt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F47D07E624C4104600E44A22 /* Debug */,
@@ -1005,7 +1005,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F47D07E824C4104600E44A22 /* Build configuration list for PBXNativeTarget "CameraControllerTests" */ = {
+		F47D07E824C4104600E44A22 /* Build configuration list for PBXNativeTarget "CamCuntTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F47D07E924C4104600E44A22 /* Debug */,

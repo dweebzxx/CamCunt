@@ -34,7 +34,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F47D07DB24C4104600E44A22"
-               BuildableName = "CameraControllerTests.xctest"
+               BuildableName = "CamCuntTests.xctest"
                BlueprintName = "CamCuntTests"
                ReferencedContainer = "container:CamCunt.xcodeproj">
             </BuildableReference>
