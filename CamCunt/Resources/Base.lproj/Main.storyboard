@@ -14,7 +14,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="CameraController" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About CameraController" id="5kV-Vb-QxS">
+                                        <menuItem title="About CamCunt" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -659,7 +659,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="CameraController Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="CamCunt Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
