@@ -1,9 +1,10 @@
 //
 //  USBHeaders.h
-//  CameraController
+//  CamCunt
 //
 //  Created by Itay Brenner on 7/20/20.
-//  Copyright © 2020 Itaysoft. All rights reserved.
+//  Copyright © 2025 dweebzxx. All rights reserved.
+//  Originally CameraController by Itay Brenner
 //
 
 #include <stdint.h>
