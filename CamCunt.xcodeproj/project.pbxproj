@@ -71,6 +71,9 @@
 		F4E5262D24C7DDB000125DF9 /* CaptureDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E5262C24C7DDB000125DF9 /* CaptureDevice.swift */; };
 		F4E5263024C7E0BC00125DF9 /* BitmapCaptureDeviceProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E5262F24C7E0BC00125DF9 /* BitmapCaptureDeviceProperty.swift */; };
 		F4E5263224C93A3400125DF9 /* DeviceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E5263124C93A3400125DF9 /* DeviceController.swift */; };
+		336639346565623361653464 /* CropSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373137346239366233613431 /* CropSettings.swift */; };
+		373666313734623166303964 /* VideoRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393934326239666562303333 /* VideoRenderer.swift */; };
+		306463623261663263636531 /* CropSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323165373965633335363139 /* CropSettingsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,6 +179,9 @@
 		F4E5262C24C7DDB000125DF9 /* CaptureDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureDevice.swift; sourceTree = "<group>"; };
 		F4E5262F24C7E0BC00125DF9 /* BitmapCaptureDeviceProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapCaptureDeviceProperty.swift; sourceTree = "<group>"; };
 		F4E5263124C93A3400125DF9 /* DeviceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceController.swift; sourceTree = "<group>"; };
+		373137346239366233613431 /* CropSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropSettings.swift; sourceTree = "<group>"; };
+		393934326239666562303333 /* VideoRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRenderer.swift; sourceTree = "<group>"; };
+		323165373965633335363139 /* CropSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropSettingsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +258,7 @@
 		F47D07DF24C4104600E44A22 /* CamCuntTests */ = {
 			isa = PBXGroup;
 			children = (
+				323165373965633335363139 /* CropSettingsTests.swift */,
 				F47D07E224C4104600E44A22 /* Info.plist */,
 				F47D07F324C412F800E44A22 /* DevicesManagerTests.swift */,
 				F47D080924C50E1C00E44A22 /* StringTests.swift */,
@@ -262,6 +269,7 @@
 		F47D07EB24C4117A00E44A22 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				393934326239666562303333 /* VideoRenderer.swift */,
 				F47D07C924C4104300E44A22 /* ContentView.swift */,
 				F4E5261E24C7BD0B00125DF9 /* CameraPreview.swift */,
 				F4E5262024C7BDD400125DF9 /* CameraPreviewInternal.swift */,
@@ -412,6 +420,7 @@
 		F4D4C6FD24CBF97400581E05 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				373137346239366233613431 /* CropSettings.swift */,
 				F4D4C6FE24CBF98300581E05 /* RefreshSettingsRate.swift */,
 				F4D4C70024CBF99200581E05 /* UserSettings.swift */,
 			);
@@ -658,7 +667,9 @@
 				F47D080E24C54A2000E44A22 /* io_service_t+Interface.swift in Sources */,
 				F47D07F824C417B700E44A22 /* UVCConstants.swift in Sources */,
 				F4E5262524C7C2E100125DF9 /* SettingsView.swift in Sources */,
-			);
+			
+				336639346565623361653464 /* CropSettings.swift in Sources */,
+				373666313734623166303964 /* VideoRenderer.swift in Sources */,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F47D07D824C4104600E44A22 /* Sources */ = {
@@ -667,7 +678,8 @@
 			files = (
 				F47D080A24C50E1C00E44A22 /* StringTests.swift in Sources */,
 				F47D07F424C412F800E44A22 /* DevicesManagerTests.swift in Sources */,
-			);
+			
+				306463623261663263636531 /* CropSettingsTests.swift in Sources */,);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F4D4C6DD24CBE7A000581E05 /* Sources */ = {
