@@ -16,12 +16,17 @@ class CaptureDevice: Hashable, ObservableObject {
     let avDevice: AVCaptureDevice?
     let uvcDevice: UVCDevice?
     var controller: DeviceController?
+    private var cropCancellable: AnyCancellable?
 
     init(avDevice: AVCaptureDevice) {
         self.avDevice = avDevice
         self.name = avDevice.localizedName
         self.uvcDevice = try? UVCDevice(device: avDevice)
         self.controller = DeviceController(properties: uvcDevice?.properties)
+
+        cropCancellable = CropSettings.shared.objectWillChange
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink { [weak self] _ in self?.saveCropSettings() }
     }
 
     static func == (lhs: CaptureDevice, rhs: CaptureDevice) -> Bool {
@@ -53,5 +58,14 @@ class CaptureDevice: Hashable, ObservableObject {
         if let controller = controller {
             controller.writeValues()
         }
+    }
+
+    private func saveCropSettings() {
+        let cs = CropSettings.shared
+        UserDefaults.standard.set(cs.enabled, forKey: "cropEnabled")
+        UserDefaults.standard.set(cs.top, forKey: "cropTop")
+        UserDefaults.standard.set(cs.bottom, forKey: "cropBottom")
+        UserDefaults.standard.set(cs.left, forKey: "cropLeft")
+        UserDefaults.standard.set(cs.right, forKey: "cropRight")
     }
 }

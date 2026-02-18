@@ -27,6 +27,8 @@ class DeviceController: ObservableObject {
     @Published var focusAuto: BoolCaptureDeviceProperty
     @Published var focusAbsolute: NumberCaptureDeviceProperty
 
+    var cropSettings: CropSettings { .shared }
+
     init?(properties: UVCDeviceProperties?) {
         guard let properties = properties else {
             return nil
