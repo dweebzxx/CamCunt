@@ -74,6 +74,8 @@
 		336639346565623361653464 /* CropSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373137346239366233613431 /* CropSettings.swift */; };
 		373666313734623166303964 /* VideoRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393934326239666562303333 /* VideoRenderer.swift */; };
 		306463623261663263636531 /* CropSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323165373965633335363139 /* CropSettingsTests.swift */; };
+		CV034F85F3339C4B66A1 /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CV84E32684D8454448A7 /* CropView.swift */; };
+		NU034F85F3339C4B66A1 /* NonUVCAdvancedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = NU84E32684D8454448A7 /* NonUVCAdvancedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +184,8 @@
 		373137346239366233613431 /* CropSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropSettings.swift; sourceTree = "<group>"; };
 		393934326239666562303333 /* VideoRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRenderer.swift; sourceTree = "<group>"; };
 		323165373965633335363139 /* CropSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropSettingsTests.swift; sourceTree = "<group>"; };
+		CV84E32684D8454448A7 /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
+		NU84E32684D8454448A7 /* NonUVCAdvancedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonUVCAdvancedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,7 +387,9 @@
 				F4D4C6D124CBD83100581E05 /* BacklightView.swift */,
 				F4D4C6D324CBD8EC00581E05 /* OrientationView.swift */,
 				F4D4C6D724CBDA5700581E05 /* FocusView.swift */,
-				F400B4D124DE1546003B9602 /* DisabledAdvancedView.swift */,
+								CV84E32684D8454448A7 /* CropView.swift */,
+				NU84E32684D8454448A7 /* NonUVCAdvancedView.swift */,
+F400B4D124DE1546003B9602 /* DisabledAdvancedView.swift */,
 			);
 			path = Advanced;
 			sourceTree = "<group>";
@@ -654,7 +660,9 @@
 				F4D4C6D024CBD3B000581E05 /* PowerLineView.swift in Sources */,
 				F47D080824C50DD700E44A22 /* CameraInformation.swift in Sources */,
 				F4D4C6D824CBDA5700581E05 /* FocusView.swift in Sources */,
-				F400B4D024DE13BF003B9602 /* DisabledBasicSettings.swift in Sources */,
+								CV034F85F3339C4B66A1 /* CropView.swift in Sources */,
+				NU034F85F3339C4B66A1 /* NonUVCAdvancedView.swift in Sources */,
+F400B4D024DE13BF003B9602 /* DisabledBasicSettings.swift in Sources */,
 				F4E5262B24C7D97B00125DF9 /* ExposureView.swift in Sources */,
 				F45B7ABA24D545B3004C4420 /* DeviceMonitor.swift in Sources */,
 				F47D081024C54B5C00E44A22 /* UnsafeMutablePointer+interface.swift in Sources */,

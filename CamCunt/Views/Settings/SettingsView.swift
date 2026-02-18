@@ -47,6 +47,9 @@ struct SettingsView: View {
     func advancedView() -> AnyView {
         if let controller = captureDevice?.controller {
             return AnyView(AdvancedView(controller: controller))
+        } else if let device = captureDevice {
+            // For non-UVC cameras, show disabled UVC controls but enabled crop controls
+            return AnyView(NonUVCAdvancedView(captureDevice: device))
         } else {
             return AnyView(DisabledAdvancedView())
         }

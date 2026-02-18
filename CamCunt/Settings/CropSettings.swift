@@ -2,8 +2,8 @@
 //  CropSettings.swift
 //  CamCunt
 //
-//  Created by GitHub Copilot on 2/18/26.
 //  Copyright © 2025 dweebzxx. All rights reserved.
+//  Originally CameraController by Itay Brenner
 //
 
 import Foundation
@@ -12,60 +12,67 @@ import Combine
 
 class CropSettings: ObservableObject {
     static let shared = CropSettings()
-    
-    // Normalized crop rectangle (0.0 to 1.0 for x, y, width, height)
+
+    // Individual crop properties for UI binding (normalized 0.0 to 1.0)
+    @Published var enabled: Bool = false
+    @Published var top: Double = 0.0
+    @Published var bottom: Double = 0.0
+    @Published var left: Double = 0.0
+    @Published var right: Double = 0.0
+
+    // Computed normalized crop rectangle for preview pipeline
     // This allows crop to be independent of actual video resolution
-    @Published var cropRect: CGRect {
-        didSet {
-            saveCropRect()
-        }
+    var cropRect: CGRect {
+        guard enabled else { return CGRect(x: 0, y: 0, width: 1, height: 1) }
+        let x = left
+        let y = top
+        let width = 1.0 - left - right
+        let height = 1.0 - top - bottom
+        return CGRect(x: x, y: y, width: width, height: height)
     }
-    
-    @Published var isEnabled: Bool {
-        didSet {
-            UserDefaults.standard.set(isEnabled, forKey: "cropEnabled")
-        }
+
+    // For backwards compatibility
+    var isEnabled: Bool {
+        get { enabled }
+        set { enabled = newValue }
     }
-    
+
     private init() {
-        // Load saved crop rect or default to full frame (no crop)
-        let x = UserDefaults.standard.double(forKey: "cropRectX")
-        let y = UserDefaults.standard.double(forKey: "cropRectY")
-        let width = UserDefaults.standard.double(forKey: "cropRectWidth")
-        let height = UserDefaults.standard.double(forKey: "cropRectHeight")
-        
-        // If no saved values, default to full frame
-        if width == 0 || height == 0 {
-            cropRect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        } else {
-            cropRect = CGRect(x: x, y: y, width: width, height: height)
-        }
-        
-        isEnabled = UserDefaults.standard.bool(forKey: "cropEnabled")
+        // Load saved crop settings
+        enabled = UserDefaults.standard.bool(forKey: "cropEnabled")
+        top = UserDefaults.standard.double(forKey: "cropTop")
+        bottom = UserDefaults.standard.double(forKey: "cropBottom")
+        left = UserDefaults.standard.double(forKey: "cropLeft")
+        right = UserDefaults.standard.double(forKey: "cropRight")
     }
-    
-    private func saveCropRect() {
-        UserDefaults.standard.set(cropRect.origin.x, forKey: "cropRectX")
-        UserDefaults.standard.set(cropRect.origin.y, forKey: "cropRectY")
-        UserDefaults.standard.set(cropRect.size.width, forKey: "cropRectWidth")
-        UserDefaults.standard.set(cropRect.size.height, forKey: "cropRectHeight")
+
+    func saveCropSettings() {
+        UserDefaults.standard.set(enabled, forKey: "cropEnabled")
+        UserDefaults.standard.set(top, forKey: "cropTop")
+        UserDefaults.standard.set(bottom, forKey: "cropBottom")
+        UserDefaults.standard.set(left, forKey: "cropLeft")
+        UserDefaults.standard.set(right, forKey: "cropRight")
     }
-    
-    // Reset crop to full frame
+
+    // Reset crop to no crop
     func reset() {
-        cropRect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        isEnabled = false
+        enabled = false
+        top = 0.0
+        bottom = 0.0
+        left = 0.0
+        right = 0.0
+        saveCropSettings()
     }
-    
+
     // Apply crop to a given rectangle (converts normalized to actual coordinates)
     func applyCrop(to rect: CGRect) -> CGRect {
-        guard isEnabled else { return rect }
-        
+        guard enabled else { return rect }
+
         let croppedX = rect.origin.x + (rect.size.width * cropRect.origin.x)
         let croppedY = rect.origin.y + (rect.size.height * cropRect.origin.y)
         let croppedWidth = rect.size.width * cropRect.size.width
         let croppedHeight = rect.size.height * cropRect.size.height
-        
+
         return CGRect(x: croppedX, y: croppedY, width: croppedWidth, height: croppedHeight)
     }
 }

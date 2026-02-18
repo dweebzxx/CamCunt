@@ -26,11 +26,15 @@ class DeviceController: ObservableObject {
     @Published var panTiltAbsolute: MultipleCaptureDeviceProperty
     @Published var focusAuto: BoolCaptureDeviceProperty
     @Published var focusAbsolute: NumberCaptureDeviceProperty
+    var cropSettings: CropSettings
 
     init?(properties: UVCDeviceProperties?) {
         guard let properties = properties else {
             return nil
         }
+
+        // Crop (shared across all devices)
+        cropSettings = CropSettings.shared
 
         // Exposure
         exposureMode = BitmapCaptureDeviceProperty(properties.exposureMode)

@@ -46,6 +46,27 @@ struct DisabledAdvancedView: View {
                 }
             }
 
+            GroupBox(label: Text("Crop")) {
+                VStack(spacing: 3.0) {
+                    HStack {
+                        Toggle(isOn: .constant(false)) {
+                            Text("Enable Crop")
+                        }
+                    }
+
+                    slider("Top:")
+                    slider("Bottom:")
+                    slider("Left:")
+                    slider("Right:")
+
+                    HStack {
+                        Button("Reset Crop") {
+                            // Disabled, does nothing
+                        }
+                    }
+                }
+            }
+
             GroupBox(label: Text("Focus")) {
                 HStack {
                     Toggle(isOn: .constant(false)) {
