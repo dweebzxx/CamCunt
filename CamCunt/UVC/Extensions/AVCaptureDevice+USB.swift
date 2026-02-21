@@ -38,12 +38,11 @@ extension AVCaptureDevice {
         dictionary["idVendor"] = cameraInformation.vendorId
         dictionary["idProduct"] = cameraInformation.productId
 
-        // adding other keys to this dictionary like kUSBProductString, kUSBVendorString, etc don't
-        // seem to have any affect on using IOServiceGetMatchingService to get the correct camera,
-        // so we instead get an iterator for the matching services based on idVendor and idProduct
-        // and fetch their property dicts and then match against the more specific values
+        DebugLogger.shared.log("🔍 Looking for USB device: vendor=\(cameraInformation.vendorId), product=\(cameraInformation.productId)")
+        DebugLogger.shared.log("   Device uniqueID: \(self.uniqueID)")
 
         var iter: io_iterator_t = 0
+        // Use kIOMainPortDefault (modern) - falls back gracefully on older systems
         if IOServiceGetMatchingServices(kIOMainPortDefault, dictionary, &iter) == kIOReturnSuccess {
             var cameraCandidate: io_service_t
             cameraCandidate = IOIteratorNext(iter)
@@ -55,43 +54,73 @@ extension AVCaptureDevice {
                     &propsRef,
                     kCFAllocatorDefault,
                     0) == kIOReturnSuccess {
+                    var found: Bool = false
                     if let properties = propsRef?.takeRetainedValue() {
-
-                        // these are common keys that might have the device name stored in the propery dictionary
-                        let keysToTry: [String] = [
-                            "kUSBProductString",
-                            "kUSBVendorString",
-                            "USB Product Name",
-                            "USB Vendor Name"
-                        ]
-
-                        var found: Bool = false
-                        for key in keysToTry {
-                            if let cameraName = (properties as NSDictionary)[key] as? String {
-                                if cameraName == self.localizedName {
-                                    // we have a match, use this as the camera
-                                    camera = cameraCandidate
-                                    found = true
-                                    // break out of `for key in keysToTry`
-                                    break
+                        
+                        // PRIMARY MATCH: Use locationID matching (same as original CameraController)
+                        // uniqueID starts with hex version of locationID
+                        if let locationID = (properties as NSDictionary)["locationID"] as? Int {
+                            let locationIDHex = "0x" + String(locationID, radix: 16)
+                            DebugLogger.shared.log("   Candidate locationID: \(locationIDHex)")
+                            if self.uniqueID.hasPrefix(locationIDHex) {
+                                camera = cameraCandidate
+                                found = true
+                                DebugLogger.shared.log("   ✅ Matched by locationID!")
+                            }
+                        }
+                        
+                        // FALLBACK MATCH: Try name-based matching if locationID didn't work
+                        if !found {
+                            let keysToTry: [String] = [
+                                "kUSBProductString",
+                                "kUSBVendorString",
+                                "USB Product Name",
+                                "USB Vendor Name"
+                            ]
+                            
+                            for key in keysToTry {
+                                if let cameraName = (properties as NSDictionary)[key] as? String {
+                                    if cameraName == self.localizedName {
+                                        camera = cameraCandidate
+                                        found = true
+                                        DebugLogger.shared.log("   ✅ Matched by name (\(key))!")
+                                        break
+                                    }
                                 }
                             }
                         }
+                        
                         if found {
-                            // break out of `while (cameraCandidate != 0)`
                             break
                         }
                     }
                 }
                 cameraCandidate = IOIteratorNext(iter)
             }
+            IOObjectRelease(iter)
+        } else {
+            DebugLogger.shared.log("   ❌ IOServiceGetMatchingServices failed")
         }
 
-        // if we haven't found a camera after looping through the iterator, fallback on GetMatchingService method
+        // Fallback on GetMatchingService method
         if camera == 0 {
-            camera = IOServiceGetMatchingService(kIOMainPortDefault, dictionary)
+            DebugLogger.shared.log("   ⚠️ No match found via iterator, trying IOServiceGetMatchingService fallback")
+            // Need to recreate dictionary as it was consumed
+            let fallbackDict: NSMutableDictionary = IOServiceMatching("IOUSBDevice") as NSMutableDictionary
+            fallbackDict["idVendor"] = cameraInformation.vendorId
+            fallbackDict["idProduct"] = cameraInformation.productId
+            camera = IOServiceGetMatchingService(kIOMainPortDefault, fallbackDict)
+            if camera != 0 {
+                DebugLogger.shared.log("   ✅ Fallback found a device")
+            }
         }
 
+        if camera == 0 {
+            DebugLogger.shared.log("   ❌ No USB device found!")
+            throw NSError(domain: #function, code: #line, userInfo: ["reason": "No matching USB device found"])
+        }
+        
+        DebugLogger.shared.log("   ✅ Found USB device: \(camera)")
         return camera
     }
 
@@ -104,34 +133,50 @@ extension AVCaptureDevice {
         }
         var interfaceRef: UnsafeMutablePointer<UnsafeMutablePointer<IOUSBInterfaceInterface190>>?
         var configDesc: IOUSBConfigurationDescriptorPtr?
+        
+        DebugLogger.shared.log("🔌 Creating plugin interface for USB device...")
+        
         try camera.ioCreatePluginInterfaceFor(service: kIOUSBDeviceUserClientTypeID) {
             let deviceInterface: DeviceInterfacePointer = try $0.getInterface(uuid: kIOUSBDeviceInterfaceID)
             defer { _ = deviceInterface.pointee.pointee.Release(deviceInterface) }
+            
+            DebugLogger.shared.log("   Got device interface, looking for UVC video control interface...")
+            
             let interfaceRequest = IOUSBFindInterfaceRequest(bInterfaceClass: UVCConstants.classVideo,
                                                              bInterfaceSubClass: UVCConstants.subclassVideoControl,
                                                              bInterfaceProtocol: UInt16(kIOUSBFindInterfaceDontCare),
                                                              bAlternateSetting: UInt16(kIOUSBFindInterfaceDontCare))
             try deviceInterface.iterate(interfaceRequest: interfaceRequest) {
                 interfaceRef = try $0.getInterface(uuid: kIOUSBInterfaceInterfaceID)
+                DebugLogger.shared.log("   ✅ Got UVC interface reference")
             }
 
             var returnCode: Int32 = 0
             var numConfig: UInt8 = 0
             returnCode = deviceInterface.pointee.pointee.GetNumberOfConfigurations(deviceInterface, &numConfig)
             if returnCode != kIOReturnSuccess {
+                DebugLogger.shared.log("   ❌ Unable to get number of configurations (code: \(returnCode))")
                 print("unable to get number of configurations")
                 return
             }
+            DebugLogger.shared.log("   Number of configurations: \(numConfig)")
 
             returnCode = deviceInterface.pointee.pointee.GetConfigurationDescriptorPtr(deviceInterface, 0, &configDesc)
             if returnCode != kIOReturnSuccess {
+                DebugLogger.shared.log("   ❌ Unable to get config descriptor (code: \(returnCode))")
                 print("unable to get config description for config 0 (index)")
                 return
             }
+            DebugLogger.shared.log("   ✅ Got configuration descriptor")
         }
-        guard interfaceRef != nil else { throw NSError(domain: #function, code: #line, userInfo: nil) }
+        
+        guard interfaceRef != nil else {
+            DebugLogger.shared.log("❌ interfaceRef is nil - UVC interface not found")
+            throw NSError(domain: #function, code: #line, userInfo: ["reason": "UVC interface not found"])
+        }
 
         let descriptor = configDesc!.proccessDescriptor()
+        DebugLogger.shared.log("✅ USB device ready - processingUnitID: \(descriptor.processingUnitID), cameraTerminalID: \(descriptor.cameraTerminalID)")
 
         return USBDevice(interface: interfaceRef.unsafelyUnwrapped,
                          descriptor: descriptor)
