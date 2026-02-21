@@ -25,23 +25,41 @@ extension UnsafeMutablePointer where Pointee == UnsafeMutablePointer<IOUSBDevice
     func iterate(interfaceRequest: IOUSBFindInterfaceRequest,
                  handle: (UnsafeMutablePointer<UnsafeMutablePointer<IOCFPlugInInterface>>) throws -> Void) rethrows {
         var iterator: io_iterator_t = 0
-        let mutatingPointer = UnsafeMutablePointer<IOUSBFindInterfaceRequest>(mutating: [interfaceRequest])
-        guard pointee.pointee.CreateInterfaceIterator(self, mutatingPointer, &iterator) == kIOReturnSuccess else {
-                                                        return
-        }
-        defer {
-            let code: kern_return_t = IOObjectRelease(iterator)
-            assert( code == kIOReturnSuccess )
-        }
-        while true {
-            let object: io_service_t = IOIteratorNext(iterator)
+        // CRITICAL FIX: Use withUnsafeMutablePointer to ensure the request stays in memory
+        var mutableRequest = interfaceRequest
+        try withUnsafeMutablePointer(to: &mutableRequest) { mutatingPointer in
+            guard pointee.pointee.CreateInterfaceIterator(self, mutatingPointer, &iterator) == kIOReturnSuccess else {
+                DebugLogger.shared.log("   ❌ CreateInterfaceIterator failed")
+                return
+            }
+            DebugLogger.shared.log("   ✅ CreateInterfaceIterator succeeded, iterator=\(iterator)")
+            
             defer {
-                let code: kern_return_t = IOObjectRelease(object)
+                let code: kern_return_t = IOObjectRelease(iterator)
                 assert( code == kIOReturnSuccess )
             }
-            guard 0 < object else { break }
-            try object.ioCreatePluginInterfaceFor(service: kIOUSBInterfaceUserClientTypeID,
-                                                  handle: handle)
+            
+            var interfaceCount = 0
+            while true {
+                let object: io_service_t = IOIteratorNext(iterator)
+                defer {
+                    let code: kern_return_t = IOObjectRelease(object)
+                    assert( code == kIOReturnSuccess )
+                }
+                guard 0 < object else {
+                    DebugLogger.shared.log("   📋 Iterator exhausted after \(interfaceCount) interfaces")
+                    break
+                }
+                interfaceCount += 1
+                DebugLogger.shared.log("   🔍 Found interface #\(interfaceCount): service=\(object)")
+                
+                try object.ioCreatePluginInterfaceFor(service: kIOUSBInterfaceUserClientTypeID,
+                                                      handle: handle)
+            }
+            
+            if interfaceCount == 0 {
+                DebugLogger.shared.log("   ⚠️ No interfaces found in iterator!")
+            }
         }
     }
 }
